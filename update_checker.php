@@ -66,7 +66,7 @@ function get_request ($url) {
     try {
         $response = Requests::get($url);
     } catch (Exception $e) {
-        return "Erreur lors du chargement de la page : $url";
+        echo "Erreur lors du chargement de la page : $url\n";
     }
 
     return $response;
