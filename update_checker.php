@@ -88,7 +88,7 @@ function spip_get_version ($home_url) {
  */
 function spip_get_ecran_securite ($home_url) {
 
-    $response = get_request($home_url . '?test_ecran_securite');
+    $response = get_request($home_url . '/spip.php?test_ecran_securite');
 
     if ($response->status_code  !== 403) {
         return false;
