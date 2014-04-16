@@ -74,6 +74,8 @@ function get_request ($url) {
 
 /**
  * Trouve la version d'un site spip.
+ *
+ * @param $home_url  L'url de la racine du site. Sans / à la fin.
  */
 function spip_get_version ($home_url) {
 
@@ -85,6 +87,8 @@ function spip_get_version ($home_url) {
 /**
  * Trouve la version de l'écran de sécurité d'un site spip. Retourne
  * false si pas d'écran de sécurité.
+ *
+ * @param $home_url  L'url de la racine du site. Sans / à la fin.
  */
 function spip_get_ecran_securite ($home_url) {
 
