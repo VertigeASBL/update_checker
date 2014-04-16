@@ -13,11 +13,10 @@ $output_file = $argv[2] ?: 'output.csv';
  * le site est ajoute des colonnes contenant les infos. On écrit alors
  * ceci dans un nouveau fichier csv.
  */
-if (($handle = fopen($input_file, "r")) !== FALSE) {
+if ((($in_handle  = fopen($input_file, "r"))  !== FALSE) AND
+    (($out_handle = fopen($output_file, "w")) !== FALSE)) {
 
-    $out_handle = fopen($output_file, "w");
-
-    while (($data = fgetcsv($handle)) !== FALSE) {
+    while (($data = fgetcsv($in_handle)) !== FALSE) {
 
         /* L'url du site est donnée par la 7ème colonne du tableau
            donné en entrée */
@@ -31,10 +30,16 @@ if (($handle = fopen($input_file, "r")) !== FALSE) {
 
         fputcsv($out_handle, $data);
     }
+}
 
-    fclose($handle);
+if ($in_handle) {
+    fclose($in_handle);
+}
+
+if ($out_handle) {
     fclose($out_handle);
 }
+
 
 /**
  * Vérifie le format d'une url, et teste que le site existe bien.
