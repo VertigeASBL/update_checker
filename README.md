@@ -7,7 +7,7 @@ Trouver les versions d'une liste de sites en SPIP.
 Cloner le dépôt :
 
 ```bash
-git clone git@github.com:bystrano/update_checker.git
+git clone git@github.com:VertigeASBL/update_checker.git
 ```
 
 Installer Composer (https://getcomposer.org/) se rendre dans le
