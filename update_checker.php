@@ -3,6 +3,10 @@
 
 require 'vendor/autoload.php';
 
+/* L'url du site est donnée par la 6ème colonne du tableau donné en
+   entrée */
+define(NO_COL_URL, 5);
+
 $input_file  = $argv[1];
 $output_file = $argv[2] ?: 'output.csv';
 
@@ -18,9 +22,7 @@ if ((($in_handle  = fopen($input_file, "r"))  !== FALSE) AND
 
     while (($data = fgetcsv($in_handle)) !== FALSE) {
 
-        /* L'url du site est donnée par la 7ème colonne du tableau
-           donné en entrée */
-        $url = $data[6];
+        $url = $data[NO_COL_URL];
 
         $infos = spip_get_infos($url);
         if ($infos) {
