@@ -24,15 +24,17 @@ if ((($in_handle  = fopen($input_file, "r"))  !== FALSE) AND
 
         $url = $data[NO_COL_URL];
 
-        $infos = spip_get_infos($url);
-        if ($infos) {
-            $data[] = $infos['version'];
-            $data[] = $infos['ecran_securite'];
-        } else {
-        }
+            $infos = spip_get_infos($url);
+            if ($infos) {
+                $data[] = $infos['version'];
+                $data[] = $infos['ecran_securite'];
+                $data[] = $infos['serveur'];
 
         fputcsv($out_handle, $data);
+            } else {
                 echo "\n Aucune information de version trouvée pour l'url $url";
+            }
+
     }
 }
 
