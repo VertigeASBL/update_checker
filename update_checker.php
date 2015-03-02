@@ -124,7 +124,8 @@ function get_server_name($home_url) {
     // S'il y a un host de trouvé, on traite les dns
     if ($url_info['host']) {
         // Récupération des infor DNS
-        $dns = dns_get_record($url_info['host']);
+        $dns = dns_get_record($url_info['host'], DNS_A);
+
         // Convertir l'IP en nom de serveur
         return gethostbyaddr($dns[0]['ip']);
     }
