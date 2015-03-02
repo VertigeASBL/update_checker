@@ -30,11 +30,12 @@ if ((($in_handle  = fopen($input_file, "r"))  !== FALSE) AND
                 $data[] = $infos['ecran_securite'];
                 $data[] = $infos['serveur'];
 
-        fputcsv($out_handle, $data);
+                echo "\n Mise à jour des informations de l'url $url";
             } else {
                 echo "\n Aucune information de version trouvée pour l'url $url";
             }
 
+            fputcsv($out_handle, $data);
     }
 }
 
