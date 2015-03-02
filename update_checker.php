@@ -36,9 +36,9 @@ if ((($in_handle  = fopen($input_file, "r"))  !== FALSE) AND
             } else {
                 echo "\n Aucune information de version trouvée pour l'url $url";
             }
-
-            fputcsv($out_handle, $data);
         }
+
+        fputcsv($out_handle, $data);
     }
 }
 
