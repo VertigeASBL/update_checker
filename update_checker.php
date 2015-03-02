@@ -137,6 +137,7 @@ function spip_get_infos ($home_url) {
         return array(
             'version'        => spip_get_version($home_url),
             'ecran_securite' => spip_get_ecran_securite($home_url),
+            'serveur' => get_server_name($home_url)
         );
     }
 }
