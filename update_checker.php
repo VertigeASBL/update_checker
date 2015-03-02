@@ -24,6 +24,8 @@ if ((($in_handle  = fopen($input_file, "r"))  !== FALSE) AND
 
         $url = $data[NO_COL_URL];
 
+        if (!empty($url)) {
+
             $infos = spip_get_infos($url);
             if ($infos) {
                 $data[] = $infos['version'];
@@ -36,6 +38,7 @@ if ((($in_handle  = fopen($input_file, "r"))  !== FALSE) AND
             }
 
             fputcsv($out_handle, $data);
+        }
     }
 }
 
