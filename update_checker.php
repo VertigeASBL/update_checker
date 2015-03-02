@@ -127,7 +127,12 @@ function get_server_name($home_url) {
         $dns = dns_get_record($url_info['host'], DNS_A);
 
         // Convertir l'IP en nom de serveur
-        return gethostbyaddr($dns[0]['ip']);
+        if (!empty($dns[0]['ip']))
+            return gethostbyaddr($dns[0]['ip']);
+        else {
+            echo "\n erreur: pas d'IP pour $home_url";
+        }
+
     }
     else
         return false;
