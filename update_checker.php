@@ -110,6 +110,22 @@ function spip_get_ecran_securite ($home_url) {
     return preg_replace('/^.*\(test ([0-9.]+)\).*$/', '$1', $response->body);
 }
 
+function get_server_name($home_url) {
+
+    // Lire les informations de l'url
+    $url_info = parse_url($home_url);
+
+    // S'il y a un host de trouvé, on traite les dns
+    if ($url_info['host']) {
+        // Récupération des infor DNS
+        $dns = dns_get_record($url_info['host']);
+        // Convertir l'IP en nom de serveur
+        return gethostbyaddr($dns[0]['ip']);
+    }
+    else
+        return false;
+}
+
 /**
  * Retourne les infos de version et de sécurité d'un site spip.
  */
