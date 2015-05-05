@@ -7,8 +7,13 @@ require 'vendor/autoload.php';
    entrée */
 define(NO_COL_URL, 5);
 
+$options = getopt('v::', array('verbose::'));
+
+$verbose = (in_array('v', $options) OR in_array('verbose', $options));
+
 $input_file  = $argv[1];
 $output_file = $argv[2] ?: 'output.csv';
+
 
 /**
  * Main
@@ -32,9 +37,9 @@ if ((($in_handle  = fopen($input_file, "r"))  !== FALSE) AND
                 $data[] = $infos['ecran_securite'];
                 $data[] = $infos['serveur'];
 
-                echo "Mise à jour des informations de l'url $url\n";
+                if ($verbose) echo "Mise à jour des informations de l'url $url\n";
             } else {
-                echo "Aucune information de version trouvée pour l'url $url\n";
+                if ($verbose) echo "Aucune information de version trouvée pour l'url $url\n";
             }
         }
 
