@@ -32,9 +32,9 @@ if ((($in_handle  = fopen($input_file, "r"))  !== FALSE) AND
                 $data[] = $infos['ecran_securite'];
                 $data[] = $infos['serveur'];
 
-                echo "\n Mise à jour des informations de l'url $url";
+                echo "Mise à jour des informations de l'url $url\n";
             } else {
-                echo "\n Aucune information de version trouvée pour l'url $url";
+                echo "Aucune information de version trouvée pour l'url $url\n";
             }
         }
 
@@ -130,7 +130,7 @@ function get_server_name($home_url) {
         if (!empty($dns[0]['ip']))
             return gethostbyaddr($dns[0]['ip']);
         else {
-            echo "\n erreur: pas d'IP pour $home_url";
+            echo "erreur: pas d'IP pour $home_url\n";
         }
 
     }
