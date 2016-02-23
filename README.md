@@ -27,7 +27,7 @@ doit être l'url de la racine du site.
 On peut alors lancer le script ainsi :
 
 ```bash
-update_checker.php source.csv sortie.csv
+php update_checker.php source.csv sortie.csv
 ```
 
 où `source.csv` est le fichier csv contenant les urls des sites à
@@ -35,5 +35,5 @@ tester, et `sortie.csv` est le nom du fichier dans lequel seront
 écrits les résultats.
 
 Le fichier de résultats est une copie du fichier de départ, auquel on
-ajoute deux colonnes : une pour le n° de version de SPIP, et une autre
-pour la version de l'écran de sécurité installé.
+ajoute trois colonnes : une pour le n° de version de SPIP, une autre
+pour la version de l'écran de sécurité installé et enfin le nom du serveur.
