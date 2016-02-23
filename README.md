@@ -21,7 +21,7 @@ php composer.phar install
 
 Exporter la liste des site en SPIP dans le google doc de
 Vertige. N'importe quel autre fichier csv fera l'affaire, à condition
-d'être formatté correctement : une ligne par site, la 7ème colonne
+d'être formatté correctement : une ligne par site, la 6ème colonne
 doit être l'url de la racine du site.
 
 On peut alors lancer le script ainsi :
