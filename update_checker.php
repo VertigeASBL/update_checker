@@ -28,7 +28,7 @@ if (! $response->success) {
 	die('Impossible de trouver le document demandé. Avez-vous la bonne clé ?');
 }
 
-$csv = array_map('str_getcsv', explode("\n", $response->body));
+file_put_contents('tmp.csv', $response->body);
 
 /**
  * Main
@@ -37,19 +37,20 @@ $csv = array_map('str_getcsv', explode("\n", $response->body));
  * le site est ajoute des colonnes contenant les infos. On écrit alors
  * ceci dans un nouveau fichier csv.
  */
-if (($out_handle = fopen($output_file, 'w')) !== false) {
+if ((($in_handle  = fopen('tmp.csv', 'r'))    !== false) and
+    (($out_handle = fopen($output_file, 'w')) !== false)) {
 
-	foreach ($csv as $i => $data) {
+	 while (($row = fgetcsv($in_handle)) !== false) {
 
-		$url = $data[NO_COL_URL];
+		$url = $row[NO_COL_URL];
 
 		if (!empty($url)) {
 
 			$infos = spip_get_infos($url);
 			if ($infos) {
-				$data[] = $infos['version'];
-				$data[] = $infos['ecran_securite'];
-				$data[] = $infos['serveur'];
+				$row[] = $infos['version'];
+				$row[] = $infos['ecran_securite'];
+				$row[] = $infos['serveur'];
 
 				if ($verbose) {
 					echo "Mise à jour des informations de l'url $url\n";
@@ -61,7 +62,7 @@ if (($out_handle = fopen($output_file, 'w')) !== false) {
 			}
 		}
 
-		fputcsv($out_handle, $data);
+		fputcsv($out_handle, $row);
 	}
 }
 
