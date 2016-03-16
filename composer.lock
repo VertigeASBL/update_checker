@@ -1,10 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "bd0d1112404528d6ebf25e842f3f5dd8",
+    "content-hash": "ae3a5fea09d6f522cc25069892e5556b",
     "packages": [
         {
             "name": "rmccue/requests",
