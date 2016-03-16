@@ -27,12 +27,15 @@ doit être l'url de la racine du site.
 On peut alors lancer le script ainsi :
 
 ```bash
-php update_checker.php source.csv sortie.csv
+php update_checker.php --verbose --key hashkey --output sortie.csv
 ```
 
-où `source.csv` est le fichier csv contenant les urls des sites à
+où `hashkey` est la clé du document Google contenant les urls des sites à
 tester, et `sortie.csv` est le nom du fichier dans lequel seront
 écrits les résultats.
+
+On peut trouver la clé du document dans son url quand on va le visiter
+sur sheets.google.com.
 
 Le fichier de résultats est une copie du fichier de départ, auquel on
 ajoute trois colonnes : une pour le n° de version de SPIP, une autre

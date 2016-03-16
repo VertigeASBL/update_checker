@@ -7,13 +7,30 @@ require 'vendor/autoload.php';
    entrée */
 define(NO_COL_URL, 5);
 
-$options = getopt('v::', array('verbose::'));
+$options = getopt('vk:o:', array('verbose', 'key:', 'output:'));
 
-$verbose = (in_array('v', $options) or in_array('verbose', $options));
+$verbose = (array_key_exists('v', $options) or array_key_exists('verbose', $options));
+$key = $options['k'] ?: $options['key'];
 
-$input_file  = $argv[1];
-$output_file = $argv[2] ?: 'output.csv';
+if (! $key) {
+	die('il faut donner la clé du document en option via le paramètre --key');
+}
 
+$input_file  = 'https://docs.google.com/spreadsheets/d/' . $key . '/pub?output=csv';
+$output_file = $options['output'] ?: $options['o'] ?: 'output.csv';
+
+$response = get_request($input_file);
+if (is_string($response)) {
+	die($response);
+}
+
+if (! $response->success) {
+	die('Impossible de trouver le document demandé. Avez-vous la bonne clé ?');
+}
+
+var_dump($output_file);
+
+$csv = array_map('str_getcsv', explode("\n", $response->body));
 
 /**
  * Main
@@ -22,10 +39,9 @@ $output_file = $argv[2] ?: 'output.csv';
  * le site est ajoute des colonnes contenant les infos. On écrit alors
  * ceci dans un nouveau fichier csv.
  */
-if ((($in_handle  = fopen($input_file, 'r'))  !== false) and
-    (($out_handle = fopen($output_file, 'w')) !== false)) {
+if (($out_handle = fopen($output_file, 'w')) !== false) {
 
-    while (($data = fgetcsv($in_handle)) !== false) {
+	foreach ($csv as $i => $data) {
 
         $url = $data[NO_COL_URL];
 
@@ -51,12 +67,10 @@ if ((($in_handle  = fopen($input_file, 'r'))  !== false) and
     }
 }
 
-if ($in_handle) {
-    fclose($in_handle);
-}
-
 if ($out_handle) {
     fclose($out_handle);
+} else {
+	die('erreur lors de l\'écriture du fichier');
 }
 
 
