@@ -9,7 +9,7 @@ define(NO_COL_URL, 5);
 
 $options = getopt('v::', array('verbose::'));
 
-$verbose = (in_array('v', $options) OR in_array('verbose', $options));
+$verbose = (in_array('v', $options) or in_array('verbose', $options));
 
 $input_file  = $argv[1];
 $output_file = $argv[2] ?: 'output.csv';
@@ -22,10 +22,10 @@ $output_file = $argv[2] ?: 'output.csv';
  * le site est ajoute des colonnes contenant les infos. On écrit alors
  * ceci dans un nouveau fichier csv.
  */
-if ((($in_handle  = fopen($input_file, "r"))  !== FALSE) AND
-    (($out_handle = fopen($output_file, "w")) !== FALSE)) {
+if ((($in_handle  = fopen($input_file, 'r'))  !== false) and
+    (($out_handle = fopen($output_file, 'w')) !== false)) {
 
-    while (($data = fgetcsv($in_handle)) !== FALSE) {
+    while (($data = fgetcsv($in_handle)) !== false) {
 
         $url = $data[NO_COL_URL];
 
@@ -37,9 +37,13 @@ if ((($in_handle  = fopen($input_file, "r"))  !== FALSE) AND
                 $data[] = $infos['ecran_securite'];
                 $data[] = $infos['serveur'];
 
-                if ($verbose) echo "Mise à jour des informations de l'url $url\n";
+                if ($verbose) {
+	                echo "Mise à jour des informations de l'url $url\n";
+                }
             } else {
-                if ($verbose) echo "Aucune information de version trouvée pour l'url $url\n";
+	            if ($verbose) {
+		            echo "Aucune information de version trouvée pour l'url $url\n";
+	            }
             }
         }
 
@@ -60,7 +64,7 @@ if ($out_handle) {
  * Vérifie le format d'une url, et teste que le site existe bien.
  * Retourne un url formattée pour la fonction spip_get_infos.
  */
-function prepare_url ($url) {
+function prepare_url($url) {
 
     if (preg_match('#^https?://#', $url) !== 1) {
         $url = 'http://' . $url;
@@ -81,7 +85,7 @@ function prepare_url ($url) {
  * Attrape les éventuelles exceptions et affiche un message générique à
  * la place.
  */
-function get_request ($url) {
+function get_request($url) {
 
     try {
         $response = Requests::get($url);
@@ -97,7 +101,7 @@ function get_request ($url) {
  *
  * @param $home_url  L'url de la racine du site. Sans / à la fin.
  */
-function spip_get_version ($home_url) {
+function spip_get_version($home_url) {
 
     $response = get_request($home_url . '/spip.php?page=login');
 
@@ -110,7 +114,7 @@ function spip_get_version ($home_url) {
  *
  * @param $home_url  L'url de la racine du site. Sans / à la fin.
  */
-function spip_get_ecran_securite ($home_url) {
+function spip_get_ecran_securite($home_url) {
 
     $response = get_request($home_url . '/spip.php?test_ecran_securite');
 
@@ -132,21 +136,20 @@ function get_server_name($home_url) {
         $dns = dns_get_record($url_info['host'], DNS_A);
 
         // Convertir l'IP en nom de serveur
-        if (!empty($dns[0]['ip']))
+        if (!empty($dns[0]['ip'])) {
             return gethostbyaddr($dns[0]['ip']);
-        else {
+        } else {
             echo "erreur: pas d'IP pour $home_url\n";
         }
-
-    }
-    else
+    } else {
         return false;
+    }
 }
 
 /**
  * Retourne les infos de version et de sécurité d'un site spip.
  */
-function spip_get_infos ($home_url) {
+function spip_get_infos($home_url) {
 
     $home_url = prepare_url($home_url);
 
